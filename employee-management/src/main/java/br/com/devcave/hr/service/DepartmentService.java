@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 @RequiredArgsConstructor
 public class DepartmentService {
@@ -24,8 +28,41 @@ public class DepartmentService {
         if (departmentRepository.existsByName(request.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Department already exists");
         }
-        final Department department = departmentMapper.departmentRequestToEntity(request);
+        final Department entity = departmentMapper.departmentRequestToEntity(request);
 
-        return departmentMapper.departmentEntityToResponse(departmentRepository.save(department));
+        return departmentMapper.departmentEntityToResponse(departmentRepository.save(entity));
     }
+
+    @Transactional
+    public DepartmentResponse update(final Long id, final DepartmentRequest request) {
+        final Department entity = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Department not found"));
+
+        if (departmentRepository.existsByNameAndIdNot(request.getName(), id)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Department already exists");
+        }
+
+        departmentMapper.updateEntity(request, entity);
+
+        return departmentMapper.departmentEntityToResponse(departmentRepository.save(entity));
+    }
+
+    @Transactional(readOnly = true)
+    public DepartmentResponse findById(final Long id) {
+        final Department entity = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Department not found"));
+
+        return departmentMapper.departmentEntityToResponse(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<DepartmentResponse> findAll() {
+        final Iterable<Department> list = departmentRepository.findAll();
+
+        return StreamSupport
+                .stream(list.spliterator(), false)
+                .map(departmentMapper::departmentEntityToResponse)
+                .collect(Collectors.toList());
+    }
+
 }

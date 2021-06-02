@@ -5,6 +5,7 @@ import br.com.devcave.hr.domain.request.DepartmentRequest;
 import br.com.devcave.hr.response.DepartmentResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
@@ -15,6 +16,8 @@ public interface DepartmentMapper {
             @Mapping(target = "updatedAt", ignore = true)
     })
     Department departmentRequestToEntity(DepartmentRequest request);
+
+    void updateEntity(DepartmentRequest request, @MappingTarget Department entity);
 
     DepartmentResponse departmentEntityToResponse(Department entity);
 }
