@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = false)
 public class Employee extends BaseEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;

@@ -14,3 +14,6 @@ spring:
     password: ${spring.datasource.password}
     ignore-missing-migrations: true
     out-of-order: true
+
+server:
+  port: 1980
