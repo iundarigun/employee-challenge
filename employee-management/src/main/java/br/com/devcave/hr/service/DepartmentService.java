@@ -3,13 +3,13 @@ package br.com.devcave.hr.service;
 import br.com.devcave.hr.department.DepartmentRepository;
 import br.com.devcave.hr.domain.entity.Department;
 import br.com.devcave.hr.domain.request.DepartmentRequest;
+import br.com.devcave.hr.exception.ApplicationException;
 import br.com.devcave.hr.mapper.DepartmentMapper;
 import br.com.devcave.hr.response.DepartmentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +26,7 @@ public class DepartmentService {
     @Transactional
     public DepartmentResponse create(final DepartmentRequest request) {
         if (departmentRepository.existsByName(request.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Department already exists");
+            throw new ApplicationException(HttpStatus.BAD_REQUEST, "Department already exists");
         }
         final Department entity = departmentMapper.departmentRequestToEntity(request);
 
@@ -36,10 +36,10 @@ public class DepartmentService {
     @Transactional
     public DepartmentResponse update(final Long id, final DepartmentRequest request) {
         final Department entity = departmentRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Department not found"));
+                .orElseThrow(() -> new ApplicationException(HttpStatus.NOT_FOUND, "Department not found"));
 
         if (departmentRepository.existsByNameAndIdNot(request.getName(), id)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Department already exists");
+            throw new ApplicationException(HttpStatus.BAD_REQUEST, "Department already exists");
         }
 
         departmentMapper.updateEntity(request, entity);
@@ -50,7 +50,7 @@ public class DepartmentService {
     @Transactional(readOnly = true)
     public DepartmentResponse findById(final Long id) {
         final Department entity = departmentRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Department not found"));
+                .orElseThrow(() -> new ApplicationException(HttpStatus.NOT_FOUND, "Department not found"));
 
         return departmentMapper.departmentEntityToResponse(entity);
     }
