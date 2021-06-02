@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: employee-management
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/employee_management
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+  flyway:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    ignore-missing-migrations: true
+    out-of-order: true
