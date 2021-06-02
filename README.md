@@ -25,7 +25,7 @@ services:
 database:
  image: mysql:8.0.22
  environment:
-   - MYSQL_DATABASE=studentdb
-   - MYSQL_USER=root
-   - MYSQL_ROOT_PASSWORD=
+   - MYSQL_DATABASE=employee_management
+   - MYSQL_ROOT_PASSWORD=root
 ```   
+ docker run -d --name local-mysql -p 3306:3306 -e MYSQL_DATABASE=employee_management -e MYSQL_ROOT_PASSWORD=root mysql

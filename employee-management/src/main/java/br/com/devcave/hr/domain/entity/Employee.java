@@ -1,18 +1,19 @@
-package br.com.devcave.hr.domain;
+package br.com.devcave.hr.domain.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.math.BigDecimal;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Employee {
+@EqualsAndHashCode(callSuper = false)
+public class Employee extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -27,7 +28,6 @@ public class Employee {
 
     private String description;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
+    @ManyToOne(optional = false)
+    private Department department;
 }
