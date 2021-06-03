@@ -8,6 +8,9 @@ import br.com.devcave.hr.exception.ApplicationException;
 import br.com.devcave.hr.mapper.EmployeeMapper;
 import br.com.devcave.hr.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,10 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "employeeList", allEntries = true),
+            @CacheEvict(value = "employee", key = "'findById:'.concat(#id)")
+    })
     public EmployeeResponse create(final EmployeeRequest request) {
         if (employeeRepository.existsByName(request.getName())) {
             throw new ApplicationException(HttpStatus.BAD_REQUEST, "Employee already exists");
@@ -39,6 +46,10 @@ public class EmployeeService {
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "employeeList", allEntries = true),
+            @CacheEvict(value = "employee", key = "'findById:'.concat(#id)")
+    })
     public EmployeeResponse update(final Long id, final EmployeeRequest request) {
         final Employee entity = employeeRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(HttpStatus.NOT_FOUND, "Employee not found"));
@@ -49,6 +60,7 @@ public class EmployeeService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "employee", key = "'findById:'.concat(#id)")
     public EmployeeResponse findById(final Long id) {
         final Employee entity = employeeRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(HttpStatus.NOT_FOUND, "Employee not found"));
@@ -57,6 +69,7 @@ public class EmployeeService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "employeeList")
     public PageResponse<EmployeeResponse> findByParams(final Integer page, final Integer size) {
         final Page<Employee> result = employeeRepository.findBy(PageRequest.of(page - 1, size));
 
@@ -65,7 +78,18 @@ public class EmployeeService {
                 .map(employeeMapper::employeeEntityToResponse)
                 .collect(Collectors.toList());
 
-        return new PageResponse(page, result.getTotalPages(), result.getTotalElements(), content);
+        return new PageResponse<>(page, result.getTotalPages(), result.getTotalElements(), content);
     }
 
+    @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "employeeList", allEntries = true),
+            @CacheEvict(value = "employee", key = "'findById:'.concat(#id)")
+    })
+    public void delete(final Long id) {
+        if (!employeeRepository.existsById(id)) {
+            throw new ApplicationException(HttpStatus.NOT_FOUND, "Employee not found");
+        }
+        employeeRepository.deleteById(id);
+    }
 }

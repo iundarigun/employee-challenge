@@ -1,6 +1,7 @@
 # Napptilus challenge
 
 Version API Rest:
+- [ ] checkstyle
 - [X] Database MySql + docker compose
 - [X] flyway to create schema
 - Restful
@@ -8,6 +9,7 @@ Version API Rest:
   - [X] create - ok
   - [X] update - ok
   - [ ] patch  - Pending
+  - [X] Delete
   - [X] findById
   - [X] findByParams - Paginat
   - [ ] findResume for sector
@@ -17,8 +19,10 @@ Version API Rest:
 - [ ] Use jbacon? Testcontainers?
 - [ ] Use API to implement resilient4j (circuit breaker) and feign (retry)
 ---
-- [ ] Add Cache caffeine or Redis (eviction policy)
-
+- Add Cache caffeine or Redis (eviction policy)
+  - [X] Add Cache to department
+  - [X] Add Cache to employee
+ 
 ### MySQL
 ```
 version: '3.6'

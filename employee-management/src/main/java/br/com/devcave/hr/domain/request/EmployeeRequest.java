@@ -1,5 +1,6 @@
 package br.com.devcave.hr.domain.request;
 
+import br.com.devcave.hr.domain.entity.JobType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,9 @@ public class EmployeeRequest {
 
     @NotNull
     private final LocalDate birthday;
+
+    @NotNull
+    private final JobType job;
 
     private final Integer height;
 

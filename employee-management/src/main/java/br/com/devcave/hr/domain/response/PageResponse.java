@@ -3,11 +3,12 @@ package br.com.devcave.hr.domain.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class PageResponse<T> {
+public class PageResponse<T> implements Serializable {
     private final Integer currentPage;
 
     private final Integer totalPages;

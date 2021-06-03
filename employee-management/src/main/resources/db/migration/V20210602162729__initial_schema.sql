@@ -15,6 +15,7 @@ create table employee
     id            int           auto_increment,
     name          varchar(255)  not null,
     birthday      date          not null,
+    job           varchar(50)   not null,
     height        int           null,
     weight        int           null,
     description   varchar(4000) null,

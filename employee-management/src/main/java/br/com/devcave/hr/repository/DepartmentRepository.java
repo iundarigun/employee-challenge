@@ -7,4 +7,6 @@ public interface DepartmentRepository extends CrudRepository<Department, Long> {
     boolean existsByName(String name);
 
     boolean existsByNameAndIdNot(String name, Long id);
+
+    boolean existsByIdAndEmployeesNotEmpty(Long id);
 }

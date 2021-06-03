@@ -12,6 +12,7 @@ import org.mapstruct.Mappings;
 public interface DepartmentMapper {
     @Mappings({
             @Mapping(target = "id", ignore = true),
+            @Mapping(target = "employees", ignore = true),
             @Mapping(target = "createdAt", ignore = true),
             @Mapping(target = "updatedAt", ignore = true)
     })
@@ -19,6 +20,7 @@ public interface DepartmentMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
+            @Mapping(target = "employees", ignore = true),
             @Mapping(target = "createdAt", ignore = true),
             @Mapping(target = "updatedAt", ignore = true)
     })
