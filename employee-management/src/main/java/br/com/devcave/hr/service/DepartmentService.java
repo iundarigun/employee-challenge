@@ -90,7 +90,7 @@ public class DepartmentService {
             @CacheEvict(value = "department", key = "'findByIdAsEntity:'.concat(#id)")
     })
     public void delete(final Long id) {
-        if (!departmentRepository.existsById(id)){
+        if (!departmentRepository.existsById(id)) {
             throw new ApplicationException(HttpStatus.NOT_FOUND, "Department not found");
         }
         if (departmentRepository.existsByIdAndEmployeesNotEmpty(id)) {

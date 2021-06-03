@@ -3,21 +3,14 @@ spring:
     name: employee-management
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/employee_management
+    url: jdbc:mysql://localhost:13306/employee_management
     username: root
     password: root
   jpa:
     show-sql: true
     open-in-view: false
-  redis:
-    host: localhost
-    port: 6379
   cache:
-    redis:
-      key-prefix: "employee-management-cache:"
-      time-to-live: 180000 # milliseconds - 30 min
-    type: redis
-    cache-names: employee, emplyoeeList, department, departmentList
+    type: none
 
   flyway:
     url: ${spring.datasource.url}
@@ -30,7 +23,7 @@ feign:
   client:
     config:
       registerAPI:
-        url: http://localhost:1899
+        url: http://localhost:3899
         connectTimeout: 1000
         readTimeout: 1000
 
@@ -53,6 +46,7 @@ resilience4j:
         failureRateThreshold: 50
         eventConsumerBufferSize: 10
         registerHealthIndicator: true
+
 
 server:
   port: 1980

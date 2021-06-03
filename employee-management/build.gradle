@@ -22,6 +22,8 @@ ext {
     set('springCloudVersion', '2020.0.3')
     set('mapstructVersion', '1.4.2.Final')
     set('openApiVersion', '1.5.9')
+    set('fakerVersion', '1.0.2')
+    set('testContainersVersion','1.15.3')
 }
 
 dependencies {
@@ -39,9 +41,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+    // OpenFeign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
     // Lombok
     annotationProcessor 'org.projectlombok:lombok'
-    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.projectlombok:lombok'
 
     // Tracing
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
@@ -53,7 +58,13 @@ dependencies {
     // OpenApi
     implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
 
+    // Tests
+    testAnnotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.rest-assured:rest-assured'
+    testImplementation "org.testcontainers:testcontainers:${testContainersVersion}"
+    testImplementation "com.github.javafaker:javafaker:${fakerVersion}"
+
 }
 
 dependencyManagement {

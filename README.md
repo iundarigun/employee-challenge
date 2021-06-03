@@ -16,8 +16,8 @@ Version API Rest:
 - [X] OpenAPI
 - [X] MapStruct to map between DTO and entity
 - [X] Use datetime for updateat and createat  
-- [ ] Use jbacon? Testcontainers?
-- [ ] Use API to implement resilient4j (circuit breaker) and feign (retry)
+- [X] Use jbacon? Testcontainers?
+- [X] Use API to implement resilient4j (circuit breaker) and feign (retry)
 ---
 - Add Cache caffeine or Redis (eviction policy)
   - [X] Add Cache to department

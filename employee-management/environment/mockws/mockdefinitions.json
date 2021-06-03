@@ -1,0 +1,44 @@
+[
+  {
+    "url": "/register/OTHER",
+    "file": "register.json",
+    "verbs": ["POST"],
+    "status": 200,
+    "ratioError": 0
+  },
+  {
+    "url": "/register/PRINCIPAL",
+    "file": "register.json",
+    "verbs": ["POST"],
+    "status": 200,
+    "ratioError": 0
+  },
+  {
+    "url": "/register/SPECIALIST",
+    "file": "register.json",
+    "verbs": ["POST"],
+    "status": 200,
+    "ratioError": 0
+  },
+  {
+    "url": "/register/SENIOR",
+    "file": "register.json",
+    "verbs": ["POST"],
+    "status": 200,
+    "ratioError": 90
+  },
+  {
+    "url": "/register/MIDDLE",
+    "file": "register.json",
+    "verbs": ["POST"],
+    "status": 200,
+    "ratioError": 0
+  },
+  {
+    "url": "/register/JUNIOR",
+    "verbs": ["POST"],
+    "status": 200,
+    "ratioError": 0,
+    "delay": 10000
+  }
+]

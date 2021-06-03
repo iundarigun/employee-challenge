@@ -26,15 +26,14 @@ public class EmployeeService {
 
     private final DepartmentService departmentService;
 
+    private final RegisterService registerService;
+
     private final EmployeeRepository employeeRepository;
 
     private final EmployeeMapper employeeMapper;
 
     @Transactional
-    @Caching(evict = {
-            @CacheEvict(value = "employeeList", allEntries = true),
-            @CacheEvict(value = "employee", key = "'findById:'.concat(#id)")
-    })
+    @CacheEvict(value = "employeeList", allEntries = true)
     public EmployeeResponse create(final EmployeeRequest request) {
         if (employeeRepository.existsByName(request.getName())) {
             throw new ApplicationException(HttpStatus.BAD_REQUEST, "Employee already exists");
@@ -42,7 +41,11 @@ public class EmployeeService {
         final Employee entity = employeeMapper.employeeRequestToEntity(request,
                 departmentService.findByIdAsEntity(request.getDepartmentId()));
 
-        return employeeMapper.employeeEntityToDetailResponse(employeeRepository.save(entity));
+        final EmployeeResponse employeeResponse = employeeMapper.employeeEntityToDetailResponse(employeeRepository.save(entity));
+
+        registerService.register(employeeResponse);
+
+        return employeeResponse;
     }
 
     @Transactional
