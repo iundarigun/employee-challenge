@@ -1,11 +1,11 @@
 package br.com.devcave.hr.service;
 
-import br.com.devcave.hr.department.DepartmentRepository;
+import br.com.devcave.hr.domain.response.DepartmentResponse;
+import br.com.devcave.hr.repository.DepartmentRepository;
 import br.com.devcave.hr.domain.entity.Department;
 import br.com.devcave.hr.domain.request.DepartmentRequest;
 import br.com.devcave.hr.exception.ApplicationException;
 import br.com.devcave.hr.mapper.DepartmentMapper;
-import br.com.devcave.hr.response.DepartmentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -53,6 +53,12 @@ public class DepartmentService {
                 .orElseThrow(() -> new ApplicationException(HttpStatus.NOT_FOUND, "Department not found"));
 
         return departmentMapper.departmentEntityToResponse(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public Department findByIdAsEntity(final Long id) {
+        return departmentRepository.findById(id)
+                .orElseThrow(() -> new ApplicationException(HttpStatus.NOT_FOUND, "Department not found"));
     }
 
     @Transactional(readOnly = true)

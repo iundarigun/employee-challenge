@@ -1,4 +1,4 @@
-package br.com.devcave.hr.department;
+package br.com.devcave.hr.repository;
 
 import br.com.devcave.hr.domain.entity.Department;
 import org.springframework.data.repository.CrudRepository;

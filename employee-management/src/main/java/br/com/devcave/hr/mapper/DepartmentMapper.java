@@ -2,7 +2,7 @@ package br.com.devcave.hr.mapper;
 
 import br.com.devcave.hr.domain.entity.Department;
 import br.com.devcave.hr.domain.request.DepartmentRequest;
-import br.com.devcave.hr.response.DepartmentResponse;
+import br.com.devcave.hr.domain.response.DepartmentResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -17,6 +17,11 @@ public interface DepartmentMapper {
     })
     Department departmentRequestToEntity(DepartmentRequest request);
 
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "createdAt", ignore = true),
+            @Mapping(target = "updatedAt", ignore = true)
+    })
     void updateEntity(DepartmentRequest request, @MappingTarget Department entity);
 
     DepartmentResponse departmentEntityToResponse(Department entity);

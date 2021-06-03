@@ -10,5 +10,6 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
 public class DepartmentRequest {
     @NotEmpty
-    private String name;
+    private final String name;
 }
+

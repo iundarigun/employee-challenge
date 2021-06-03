@@ -1,4 +1,4 @@
-package br.com.devcave.hr.response;
+package br.com.devcave.hr.domain.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

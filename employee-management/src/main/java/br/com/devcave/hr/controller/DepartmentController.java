@@ -1,7 +1,7 @@
 package br.com.devcave.hr.controller;
 
 import br.com.devcave.hr.domain.request.DepartmentRequest;
-import br.com.devcave.hr.response.DepartmentResponse;
+import br.com.devcave.hr.domain.response.DepartmentResponse;
 import br.com.devcave.hr.service.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
