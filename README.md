@@ -1,3 +1,4 @@
+![Status](https://github.com/iundarigun/employee-challenge/actions/workflows/employee-challenge-ci.yml/badge.svg)
 # Napptilus challenge
 
 Version API Rest:
