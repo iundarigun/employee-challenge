@@ -7,6 +7,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 @Configuration
 public class DockerConfiguration {
     private static final GenericContainer<?> DATABASE = createDatabaseContainer();
+
     private static final GenericContainer<?> MOCK = createMockContainer();
 
     private static GenericContainer<?> createDatabaseContainer() {
