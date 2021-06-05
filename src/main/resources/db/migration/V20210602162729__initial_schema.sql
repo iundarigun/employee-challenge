@@ -17,7 +17,7 @@ create table employee
     birthday      date          not null,
     job           varchar(50)   not null,
     height        int           null,
-    weight        int           null,
+    weight        double        null,
     description   varchar(4000) null,
     department_id int           not null,
     created_at    datetime      not null,

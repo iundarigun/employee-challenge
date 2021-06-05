@@ -9,8 +9,8 @@ import br.com.devcave.hr.repository.DepartmentRepository;
 import br.com.devcave.hr.repository.EmployeeRepository;
 import io.restassured.RestAssured;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -32,8 +32,8 @@ public class DepartmentEndpointTest extends AbstractEndpointTest {
 
     private final EmployeeRepository employeeRepository;
 
-    @AfterEach
-    void afterEach() {
+    @BeforeEach
+    void beforeEach() {
         employeeRepository.deleteAll();
         departmentRepository.deleteAll();
     }

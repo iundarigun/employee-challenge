@@ -5,7 +5,7 @@ WORKDIR $APP_HOME
 COPY settings.gradle build.gradle gradlew gradlew.bat checkstyle.xml $APP_HOME/
 COPY gradle $APP_HOME/gradle
 COPY src src
-RUN ./gradlew build
+RUN ./gradlew build -x test
 
 FROM openjdk:11-jre
 WORKDIR /root/

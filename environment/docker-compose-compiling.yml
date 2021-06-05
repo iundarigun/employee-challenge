@@ -1,0 +1,28 @@
+version: '3.6'
+services:
+  database:
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=employee_management
+      - MYSQL_ROOT_PASSWORD=root
+  redis:
+    image: redis
+  mockWS:
+    image: iundarigun/mock-ws
+    environment:
+      - MOCK_DEFINITIONPATH=/home/config/
+      - MOCK_FILESPATH=/home/config/json/
+    volumes:
+      - ./mockws:/home/config
+  employee_management:
+    build: ../.
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/employee_management
+      - SPRING_REDIS_HOST=redis
+      - FEIGN_CLIENT_CONFIG_REGISTERAPI_URL=http://mockWS:1899
+    depends_on:
+      - database
+      - redis
+      - mockWS
+    ports:
+      - 1980:1980
