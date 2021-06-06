@@ -31,7 +31,7 @@ We can run all tests directly from command line. During the process a MySQL cont
 - The main technology are `Java` with `Spring Boot`. I decided use sync way because is easier to add cache.
 I add a flyway to create schema and initial data to play with.
   
-- I add `Redis` and cache mechanism. In this case, Redis is an overengineering, and Caffeine may be resolve better. But if you have more than one instance of the application, Redis can be a good solution.
+- I add `Redis` and cache mechanism. In this case, Redis is an over engineering, and Caffeine may be resolve better. But if you have more than one instance of the application, Redis can be a good solution.
 
 - I add an external communication, mocking an endpoint trying to register employee in the government system. I use MockWS for this -a project was created for me two years ago-. It allows us to add delays and failing calls. For leading with, I used Resilient4j with Retry and CircuitBreaker configuration. I let the window of CircuitBreaker small to see the behavior.
 
@@ -40,6 +40,8 @@ I add a flyway to create schema and initial data to play with.
 To Integration test, I choose to use `RestAssured` with `TestContainers`. The main reason is to have an environment near the real scenario. I only test Department endpoint for time to finish the test.
 
 - I used a checkstyle configuration to keep the code style uniform.
+
+- I added github actions to run all main commit as CI: https://github.com/iundarigun/employee-challenge/actions/workflows/employee-challenge-ci.yml
 
 ## Package design
 I separated with package with logical layers:
